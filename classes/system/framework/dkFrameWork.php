@@ -165,16 +165,28 @@ class dkFrameWork
         }
 
         // contents 로드
-        $contents_path = $this->info->view["html_path"];
+        $contents_path = $this->info->view["html_path"] . DS . $this->info->controller;
         $contents_path .= DS . $this->info->action . ".phtml";
 
-        ob_start();
-        include( $contents_path );
-        $contents = ob_get_clean();
+        // error catch
+        if ( !is_file($contents_path) ){
+            echo "<br>error : view 파일이 없음. ($contents_path)<br><br>";
+            $contents = "";
+        }else{
+            ob_start();
+            include( $contents_path );
+            $contents = ob_get_clean();
+        }
 
         // layout Load
         $layout = $this->info->view["layout"];
-        $layout = require_once $layout;
+        // error catch
+        if ( !is_file($layout) ){
+            echo "<br>error : layout 파일이 없음. ($layout)<br><br>";
+        }else{
+            $layout = require_once $layout;
+        }
+
 
     }
 }
