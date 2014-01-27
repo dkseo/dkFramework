@@ -58,6 +58,7 @@ class dkFrameWork
     // 모듈명 등록
     private function setModuleName( $module )
     {
+	$this->module = new \stdClass();
         $this->module->name = $module->module_name;
     }
 
@@ -65,6 +66,7 @@ class dkFrameWork
     private function createModuleObject()
     {
         foreach ( $this->module->name as $key => $val ){
+            $this->module->$val = new \stdClass();
             $this->module->$val->path = MODULE_PATH . $val;
         };
     }
@@ -76,6 +78,7 @@ class dkFrameWork
     private function LoadRoute()
     {
         $route = new routeLoader;
+        $this->route = new \stdClass();
         $this->route->name = $route->route;
     }
 
@@ -86,6 +89,7 @@ class dkFrameWork
     private function SettingURI()
     {
         $uri = new uriLoader;
+        $this->uri = new \stdClass();
         $this->uri->list = $uri->uri;
         $this->uri->now_uri = $uri->now_uri;
     }
@@ -110,6 +114,7 @@ class dkFrameWork
         if ( in_array( $this->uri->now_uri, $this->module->name ) ) {
             $now_uri = $this->uri->now_uri;
             $module_config = require $this->module->$now_uri->path . DS . "module.config.php";
+            $this->info = new \stdClass();
             $this->info->module = $this->uri->now_uri;
         }
         // 그렇지 않으면 default 설정 로드
