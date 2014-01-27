@@ -26,5 +26,3 @@ $fw = new dkFrameWork;
 
 ## Run
 $fw->RunningFW();
-
-//debug($fw);
