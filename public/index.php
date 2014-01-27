@@ -20,6 +20,7 @@ require "init_autoloader.php";
  * Run
 */
 
+debug($fw);
 
 //$func->debug( get_defined_vars() );
 //$func->debug( get_defined_functions() );

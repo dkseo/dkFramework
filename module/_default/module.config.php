@@ -45,12 +45,12 @@ return array(
          * 컨트롤러 mapping 설정
          * 일부 컨트롤러는 기존의 컨트롤러를 사용할 수 있도록 하는 설정
          * 컨트롤러 명 => "매핑할 컨트롤러 명"
-        */
         "mapping" => array(
             "mapping"   => "index",
             "mapping1"   => "index",
             "mapping2"   => "index",
         ),
+        */
 
         /**
          * 기본 뷰 페이지임.

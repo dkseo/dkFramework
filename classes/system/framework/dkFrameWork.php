@@ -158,8 +158,10 @@ class dkFrameWork
         $action = $controller->$tmpAction();
 
         // action 에서 리턴한 배열들 변수화
-        foreach ( $action as $key => $val ){
-            ${$key} = $val;
+        if( is_array($action) ){
+            foreach ( $action as $key => $val ){
+                ${$key} = $val;
+            }
         }
 
         // contents 로드
