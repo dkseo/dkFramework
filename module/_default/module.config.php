@@ -62,5 +62,25 @@ return array(
             "html_path"   => __DIR__ . DS . "view" . DS . "html",
             "error"     => __DIR__ . DS . "view" . DS . "error" . DS . "error.phtml",
         ),
+
+        /**
+         * css, javascript include
+         * _default에 적용된 css와 javascript는 모든 페이지에 적용되는 공통사항임.
+         * 모듈별로 include를 설정하면 공통include에 추가하여 설정됨
+        */
+        "client_script" => array(
+            "css"   => array(
+                //"/css/style.css",
+                //"/css/button.css",
+                //"/css/bootstrap.css",
+                //"/css/default.css"
+        
+            ),
+            "js"    => array(
+                //"/js/jquery.1.11.0.min.js",
+                //"/js/google_analytics.js",
+                //"/js/bootstrap.js"
+            ),
+        ),
     ),
 );
