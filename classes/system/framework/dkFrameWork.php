@@ -141,6 +141,10 @@ class dkFrameWork
         $this->info->view["layout"] = ( isset($module_config["routes"]["view_manager"]["layout"]) )?$module_config["routes"]["view_manager"]["layout"] : $this->info->view["layout"];
         $this->info->view["html_path"] = ( isset($module_config["routes"]["view_manager"]["html_path"]) )?$module_config["routes"]["view_manager"]["html_path"] : $this->info->view["html_path"];
         $this->info->view["error"] = ( isset($module_config["routes"]["view_manager"]["error"]) )?$module_config["routes"]["view_manager"]["error"] : $this->info->view["error"];
+
+        // view 없음
+        if($module_config["routes"]["view_manager"] == "none")
+            $this->info->view = "none";
     }
 
 
@@ -164,29 +168,31 @@ class dkFrameWork
             }
         }
 
-        // contents 로드
-        $contents_path = $this->info->view["html_path"] . DS . $this->info->controller;
-        $contents_path .= DS . $this->info->action . ".phtml";
+        // view 로드
+        if ( $this->info->view != "none" ) {
+            // contents 로드
+            $contents_path = $this->info->view["html_path"] . DS . $this->info->controller;
+            $contents_path .= DS . $this->info->action . ".phtml";
 
-        // error catch
-        if ( !is_file($contents_path) ){
-            echo "<br>error : view 파일이 없음. ($contents_path)<br><br>";
-            $contents = "";
-        }else{
-            ob_start();
-            include( $contents_path );
-            $contents = ob_get_clean();
+
+            // error catch
+            if ( !is_file($contents_path) ){
+                echo "<br>error : view 파일이 없음. ($contents_path)<br><br>";
+                $contents = "";
+            }else{
+                ob_start();
+                include( $contents_path );
+                $contents = ob_get_clean();
+            }
+
+            // layout Load
+            $layout = $this->info->view["layout"];
+            // error catch
+            if ( !is_file($layout) ){
+                echo "<br>error : layout 파일이 없음. ($layout)<br><br>";
+            }else{
+                $layout = require_once $layout;
+            }
         }
-
-        // layout Load
-        $layout = $this->info->view["layout"];
-        // error catch
-        if ( !is_file($layout) ){
-            echo "<br>error : layout 파일이 없음. ($layout)<br><br>";
-        }else{
-            $layout = require_once $layout;
-        }
-
-
     }
 }
