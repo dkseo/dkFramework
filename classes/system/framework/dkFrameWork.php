@@ -120,6 +120,7 @@ class dkFrameWork
         // 그렇지 않으면 default 설정 로드
         else {
             $module_config = require $this->module->_default->path . DS . "module.config.php";
+            $this->info = new \stdClass();
             $this->info->module = "_default";
         }
 
@@ -153,18 +154,21 @@ class dkFrameWork
     #################################
     public function RunningFW()
     {
-        // 컨트롤러 로드
-        $tmpController = "\module\\" . $this->info->module . "\controller\\" . $this->info->controller . "Controller";
-        $controller = new $tmpController;
+        if ( $this->info->controller != "favicon.ico" ) {
+            // 컨트롤러 로드
+            $tmpController = "\module\\" . $this->info->module . "\controller\\" . $this->info->controller . "Controller";
+            $controller = new $tmpController;
 
-        // action 시작
-        $tmpAction = $this->info->action . "Action";
-        $action = $controller->$tmpAction();
 
-        // action 에서 리턴한 배열들 변수화
-        if( is_array($action) ){
-            foreach ( $action as $key => $val ){
-                ${$key} = $val;
+            // action 시작
+            $tmpAction = $this->info->action . "Action";
+            $action = $controller->$tmpAction();
+
+            // action 에서 리턴한 배열들 변수화
+            if( is_array($action) ){
+                foreach ( $action as $key => $val ){
+                    ${$key} = $val;
+                }
             }
         }
 
