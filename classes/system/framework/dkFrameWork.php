@@ -175,7 +175,7 @@ class dkFrameWork
         // view 로드
         if ( $this->info->view != "none" ) {
             // contents 로드
-            $contents_path = $this->info->view["html_path"] . DS . $this->info->controller;
+            $contents_path = @$this->info->view["html_path"] . DS . $this->info->controller;
             $contents_path .= DS . $this->info->action . ".phtml";
 
 
@@ -190,7 +190,7 @@ class dkFrameWork
             }
 
             // layout Load
-            $layout = $this->info->view["layout"];
+            $layout = @$this->info->view["layout"];
             // error catch
             if ( !is_file($layout) ){
                 echo "<br>error : layout 파일이 없음. ($layout)<br><br>";
